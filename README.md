@@ -30,8 +30,8 @@ This project is a robust and flexible end-to-end test automation suite for the R
 
 ```
 src 
-├── logs 								# Daily log files (auto-generated via Log4j2 RollingFile) 
-├── screenshots 						# Screenshots for failed test cases 
+├── logs 					# Daily log files (auto-generated via Log4j2 RollingFile) 
+├── screenshots 				# Screenshots for failed test cases 
 ├── test 
 │ ├── java 
 │ │ └── com.testing 
@@ -41,29 +41,29 @@ src
 │ │   │ ├── ComposeEmail.java 			# Represents email content for composing drafts 
 │ │   │ ├── EmailMetadata.java 			# Email details for assertions and comparisons 
 │ │   ├── pages 
-│ │   │ ├── BasePage.java 				# Abstract class for common wait and utility methods 
-│ │   │ ├── LoginPage.java 				# Handles login page interactions 
+│ │   │ ├── BasePage.java 			# Abstract class for common wait and utility methods 
+│ │   │ ├── LoginPage.java 			# Handles login page interactions 
 │ │   │ └── MailboxPage.java 			# Main page logic (delete, spam, send, logout, etc.) 
 │ │   ├── tests 
 │ │   │ ├── DeleteEmailTest.java 		# Deletes email and verifies 
-│ │   │ ├── LoginTest.java 				# Validates login and logout flow 
-│ │   │ ├── LoginOut.java 				# Simple login-logout scenario 
+│ │   │ ├── LoginTest.java 			# Validates login and logout flow 
+│ │   │ ├── LoginOut.java 			# Simple login-logout scenario 
 │ │   │ ├── MarkAsSpamTest.java			# Marks email as spam 
 │ │   │ ├── SendDraftMailTest.java 		# Composes, saves as draft, and sends email 
-│ │   │ └── TestBase.java 				# Base test logic: setup, teardown, screenshots, logging 
+│ │   │ └── TestBase.java 			# Base test logic: setup, teardown, screenshots, logging 
 │ │   └── utils 
 │ │     ├── ConfigReader.java 			# Loads environment-specific config properties 
-│ │     └── EnhancedWebActions.java 	# Wrapper for WebDriver actions (with highlight + logging) 
+│ │     └── EnhancedWebActions.java 	        # Wrapper for WebDriver actions (with highlight + logging) 
 │ ├──- resources 
 │ │  ├── config.dev.properties 			# Environment config for dev 
 │ │  ├── config.staging.properties 		# Environment config for staging 
-│ │  ├── all-tests.staging-chrome.xml 	# All test suite for Chrome 
-│ │  ├── all-tests.staging-firefox.xml 	# All test suite for Firefox 
-│ │  ├── smoke-suite.xml 				# Smoke tests 
+│ │  ├── all-tests.staging-chrome.xml 	        # All test suite for Chrome 
+│ │  ├── all-tests.staging-firefox.xml 	        # All test suite for Firefox 
+│ │  ├── smoke-suite.xml 			# Smoke tests 
 │ │  ├── regression-suite.xml 			# Full regression suite 
-│ │  └── log4j2.xml 					# Log4j2 configuration for console & file output target 
+│ │  └── log4j2.xml 				# Log4j2 configuration for console & file output target 
 target
-pom.xml 								# Maven build config and dependencies 
+pom.xml 					# Maven build config and dependencies 
 README.md 
 ```
 
@@ -127,7 +127,10 @@ README.md
 
 
 
-https://github.com/user-attachments/assets/b677fe94-fefa-4567-9823-bf5952beada6
+
+https://github.com/user-attachments/assets/a687a70e-b397-402d-9a0c-59a789e66636
+
+
 
 
 
