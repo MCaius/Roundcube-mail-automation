@@ -4,6 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
+/*
+ * Reads configuration settings from a properties file (e.g., config.dev.properties, etc).
+ * Provides simple access to app-specific config values across your test suite.
+ */
+
 public class ConfigReader {
     private static final Properties props = new Properties();
 
@@ -21,4 +26,3 @@ public class ConfigReader {
         return props.getProperty(key);
     }
 }
-

@@ -1,27 +1,32 @@
 package com.testing.utils;
 
+import com.testing.utils.decorators.WebActionDecoratorInterface;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class EnhancedWebActions {
+/*
+ * Provides enhanced interaction with web elements, such as safely clicking, highlighting,
+ * switching frames, introducing controlled waits, etc. Can be used directly or wrapped
+ * by decorators like ScreenshotOnFailureDecorator.
+ */
+
+public class EnhancedWebAction implements WebActionDecoratorInterface {
 
     private final WebDriver driver;
     private final WebDriverWait wait;
     private final Actions actions;
-    private static final Logger logger = LogManager.getLogger(EnhancedWebActions.class);
+    private static final Logger logger = LogManager.getLogger(EnhancedWebAction.class);
 
 
-    // Define your notification container locator here
+    // Notification container locator
     private final By notificationContainer = By.cssSelector("div#messagestack");
 
-    public EnhancedWebActions(WebDriver driver, WebDriverWait wait) {
+    public EnhancedWebAction(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
         this.wait = wait;
         this.actions = new Actions(driver);
@@ -73,7 +78,8 @@ public class EnhancedWebActions {
             logger.info("✅ Enhanced click on WebElement: {}", elementDescription(element));
 
         } catch (Exception e) {
-            logger.error("❌ Failed to perform enhanced click: {}", e.getMessage());
+            logger.error("❌ Failed to perform enhanced click", e);
+            throw e; // 👈 THIS is the fix — rethrow the error
         }
     }
 

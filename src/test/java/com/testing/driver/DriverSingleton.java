@@ -1,34 +1,24 @@
 package com.testing.driver;
 
-
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+
+/*
+ * Singleton pattern implementation for WebDriver management.
+ * Ensures a single instance of WebDriver is used across tests to avoid conflicts.
+ * Handles both driver instantiation and cleanup.
+ */
 
 public class DriverSingleton {
     private static WebDriver driver;
 
     private DriverSingleton() {
-        // prevent instantiation
+        // Ensures this class cannot be instantiated from outside
     }
 
     public static WebDriver getDriver() {
         if (driver == null) {
-            String browser = System.getProperty("browser", "chrome"); // default to Chrome
-
-            switch (browser.toLowerCase()) {
-                case "firefox":
-                    WebDriverManager.firefoxdriver().setup();
-                    driver = new FirefoxDriver();
-                    break;
-                case "chrome":
-                default:
-                    WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
-                    break;
-            }
-
+            String browser = System.getProperty("browser", "chrome");
+            driver = DriverFactory.createDriver(browser);
             driver.manage().window().maximize();
         }
         return driver;
@@ -37,7 +27,7 @@ public class DriverSingleton {
     public static void closeDriver() {
         if (driver != null) {
             driver.quit();
-            driver = null; // Ensure driver reference is cleared post-quit
+            driver = null; // Ensure driver reference is cleared after quitting
         }
     }
 }

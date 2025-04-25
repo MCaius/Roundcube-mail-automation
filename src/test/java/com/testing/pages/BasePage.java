@@ -1,46 +1,35 @@
 package com.testing.pages;
 
-import com.testing.utils.EnhancedWebActions;
+import com.testing.utils.EnhancedWebAction;
+import com.testing.utils.decorators.PerformanceTimerDecorator;
+import com.testing.utils.decorators.ScreenshotOnFailureDecorator;
+import com.testing.utils.decorators.WebActionDecoratorInterface;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import com.testing.utils.WebActions;
 import java.time.Duration;
 
 public abstract class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
-    protected EnhancedWebActions enhancedActions;
+    protected WebActionDecoratorInterface enhancedActions;
+    protected WebActions webActions;
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        this.enhancedActions = new EnhancedWebActions(driver, this.wait);
+
+        this.enhancedActions = new ScreenshotOnFailureDecorator(
+                new PerformanceTimerDecorator(
+                        new EnhancedWebAction(driver, this.wait)
+                ),
+                driver
+        );
+
+        this.webActions = new WebActions(this.wait);
 
         // Initialize PageFactory for all subclasses
         PageFactory.initElements(driver, this);
-    }
-
-    // Utility methods for working with WebElements
-    protected boolean isElementPresent(WebElement element) {
-        try {
-            return element.isDisplayed();
-        } catch (NoSuchElementException | StaleElementReferenceException e) {
-            return false;
-        }
-    }
-
-    protected WebElement waitForVisibility(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element));
-    }
-
-    protected void type(WebElement element, String text) {
-        waitForVisibility(element).clear();
-        element.sendKeys(text);
-    }
-
-    protected String getText(WebElement element) {
-        return waitForVisibility(element).getText().trim();
     }
 }

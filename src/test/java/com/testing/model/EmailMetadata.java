@@ -1,5 +1,10 @@
 package com.testing.model;
 
+/*
+ * Represents minimal metadata extracted from emails in the email list,
+ * such as sender and subject. Typically used for assertions.
+ */
+
 public class EmailMetadata {
     private String sender;
     private String subject;
@@ -25,4 +30,3 @@ public class EmailMetadata {
                 '}';
     }
 }
-

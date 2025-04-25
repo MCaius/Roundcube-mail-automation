@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 public class MailboxPage extends BasePage {
     private static final Logger logger = LogManager.getLogger(MailboxPage.class);
 
-
     public MailboxPage(WebDriver driver) {
         super(driver);
     }
@@ -100,7 +99,7 @@ public class MailboxPage extends BasePage {
 
     public boolean isLoginSuccessful() {
         boolean urlCheck = wait.until(ExpectedConditions.urlContains("_task=mail"));
-        boolean inboxLoaded = isElementPresent(composeButton); // Compose button should be visible
+        boolean inboxLoaded = webActions.isElementPresent(composeButton); // Compose button should be visible
         return urlCheck && inboxLoaded;
     }
 
@@ -114,8 +113,8 @@ public class MailboxPage extends BasePage {
 
     // Stores the subject and "to email"
     public void storeEmailIdentifiers() {
-        WebElement senderElement = waitForVisibility(emailInEmilList);
-        WebElement subjectElement = waitForVisibility(subjectInEmilList);
+        WebElement senderElement = webActions.waitForVisibility(emailInEmilList);
+        WebElement subjectElement = webActions.waitForVisibility(subjectInEmilList);
 
         String senderTitle = senderElement.getAttribute("title").trim();
         String subjectText = subjectElement.getText().trim();
@@ -126,8 +125,8 @@ public class MailboxPage extends BasePage {
 
     // Asserts if the stored subject and "to email" match the currently clicked email's details
     public void assertEmailIdentifiers() {
-        WebElement senderElement = waitForVisibility(emailInEmilList);
-        WebElement subjectElement = waitForVisibility(subjectInEmilList);
+        WebElement senderElement = webActions.waitForVisibility(emailInEmilList);
+        WebElement subjectElement = webActions.waitForVisibility(subjectInEmilList);
 
         String currentSenderTitle = senderElement.getAttribute("title").trim();
         String currentSubjectText = subjectElement.getText().trim();
@@ -143,8 +142,8 @@ public class MailboxPage extends BasePage {
     public void assertEmailIdentifiersFromFrame() {
         enhancedActions.switchToFrame(selectedEmailFrame);
 
-        String senderFromFrame = waitForVisibility(fromEmailInFrame).getAttribute("title").trim();
-        String subjectFromFrame = waitForVisibility(subjectInFrame).getText().trim();
+        String senderFromFrame = webActions.waitForVisibility(fromEmailInFrame).getAttribute("title").trim();
+        String subjectFromFrame = webActions.waitForVisibility(subjectInFrame).getText().trim();
 
         EmailMetadata frameEmail = new EmailMetadata(senderFromFrame, subjectFromFrame);
 
@@ -158,7 +157,7 @@ public class MailboxPage extends BasePage {
 
 
     public boolean isEmailListEmpty() {
-        return !isElementPresent(firstEmailInList);
+        return !webActions.isElementPresent(firstEmailInList);
     }
 
     public void logout() {
@@ -178,9 +177,9 @@ public class MailboxPage extends BasePage {
 
     // Fill in "To", "Subject", and "Body"
     public void fillEmailFields(ComposeEmail email) {
-        type(toInput, email.getTo());
-        type(subjectInput, email.getSubject());
-        type(bodyInput, email.getBody());
+        webActions.type(toInput, email.getTo());
+        webActions.type(subjectInput, email.getSubject());
+        webActions.type(bodyInput, email.getBody());
     }
 
     public void saveDraft() {
@@ -206,9 +205,9 @@ public class MailboxPage extends BasePage {
     public boolean isSelectedEmailContentCorrect(ComposeEmail expectedEmail) {
         enhancedActions.switchToFrame(selectedEmailFrame);
 
-        String actualTo = getText(fromEmailInFrame);
-        String actualSubject = getText(subjectInFrame);
-        String actualBody = getText(messageInFrame);
+        String actualTo = webActions.getText(fromEmailInFrame);
+        String actualSubject = webActions.getText(subjectInFrame);
+        String actualBody = webActions.getText(messageInFrame);
 
         enhancedActions.switchToDefaultContent();
 
