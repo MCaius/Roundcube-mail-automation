@@ -4,25 +4,29 @@ This project is a robust and flexible end-to-end test automation suite for the R
 
 ---
 
-## ✅ Acceptance Criteria Coverage
+## ✅ Test Automation Architecture & Features
 
-- ✔ Linear test scenarios with stable assertions.
+- ✔ Linear, readable test scenarios with stable assertions
 - ✔ 3 core test flows implemented:
-    - **Delete Email**
-    - **Mark Email as Spam**
-    - **Send Draft Mail**
-- ✔ Custom waits and usage of WebDriver API methods (`click()`, `getText()`, `switchTo()`, etc.).
+  - **Delete Email**
+  - **Mark Email as Spam**
+  - **Send Draft Mail**
+- ✔ Custom waits and usage of WebDriver API (`click()`, `getText()`, `switchTo()`, etc.)
 - ✔ Mix of locator strategies: `id`, `cssSelector`, `tagName`, etc.
-- ✔ No auto-generated or unstable locators used.
-- ✔ Full usage of **implicit and explicit waits**.
-- ✔ Proper test assertions and validations in every test.
-- ✔ Clean and reusable **Page Object Model** structure.
-- ✔ Inheritance and abstraction using a base page (`BasePage`) and `TestBase` for test setup/teardown.
-- ✔ Encapsulation respected — internal logic abstracted from test classes.
-- ✔ Screenshots on failure for easier debugging.
-- ✔ Flexible execution using parameters: browser, environment, and suite.
-- ✔ Logging for every interaction using **Log4j2** with console & file output (daily logs).
-- ✔ Elements are **highlighted during test execution** to visualize actions.
+- ✔ Avoidance of unstable or auto-generated locators
+- ✔ Full support for **explicit waits** (no implicit waits used)
+- ✔ Robust assertions and validations in all tests
+- ✔ Solid Page Object Model with reusability and abstraction
+- ✔ Shared logic moved to a common `BasePage` and `TestBase` structure
+- ✔ Usage of decorators:
+  - 📸 **ScreenshotOnFailureDecorator** — for failure screenshots
+  - ⏱ **PerformanceTimerDecorator** — to log action durations
+- ✔ Elements are **highlighted during interactions** for visibility
+- ✔ Logging with **Log4j2** to both console and rolling log files
+- ✔ Configurable test environments (`dev`, `staging`, etc.)
+- ✔ Cross-browser support (`Chrome`, `Firefox`) via WebDriverManager
+- ✔ Runs are flexible via `-D` system properties (e.g., `browser`, `env`, `suite`)
+
 
 ---
 
@@ -30,40 +34,47 @@ This project is a robust and flexible end-to-end test automation suite for the R
 
 ```
 src 
-├── logs 					# Daily log files (auto-generated via Log4j2 RollingFile) 
-├── screenshots 				# Screenshots for failed test cases 
+├── logs 					        # Daily log files (auto-generated via Log4j2 RollingFile) 
+├── screenshots 				        # Screenshots for failed test cases 
 ├── test 
 │ ├── java 
 │ │ └── com.testing 
 │ │   ├── driver 
-│ │   │ └── DriverSingleton.java  		# WebDriver setup with support for Chrome & Firefox 
+│ │   │ ├── DriverFactory.java 			        # Creates instances of WebDriver 
+│ │   │ └── DriverSingleton.java  		        # Implementation for WebDriver management  
 │ │   ├── model 
-│ │   │ ├── ComposeEmail.java 			# Represents email content for composing drafts 
-│ │   │ ├── EmailMetadata.java 			# Email details for assertions and comparisons 
+│ │   │ ├── ComposeEmail.java 			        # Represents email content for composing drafts 
+│ │   │ ├── EmailMetadata.java 			        # Email details for assertions and comparisons 
 │ │   ├── pages 
-│ │   │ ├── BasePage.java 			# Abstract class for common wait and utility methods 
-│ │   │ ├── LoginPage.java 			# Handles login page interactions 
-│ │   │ └── MailboxPage.java 			# Main page logic (delete, spam, send, logout, etc.) 
+│ │   │ ├── BasePage.java 			        # Abstract class for child pages 
+│ │   │ ├── LoginPage.java 			        # Handles login page interactions 
+│ │   │ └── MailboxPage.java 			        # Main page logic (delete, spam, send, logout, etc.) 
 │ │   ├── tests 
-│ │   │ ├── DeleteEmailTest.java 		# Deletes email and verifies 
-│ │   │ ├── LoginTest.java 			# Validates login and logout flow 
-│ │   │ ├── LoginOut.java 			# Simple login-logout scenario 
-│ │   │ ├── MarkAsSpamTest.java			# Marks email as spam 
-│ │   │ ├── SendDraftMailTest.java 		# Composes, saves as draft, and sends email 
-│ │   │ └── TestBase.java 			# Base test logic: setup, teardown, screenshots, logging 
+│ │   │ ├── DeleteEmailTest.java 		        # Deletes email and verifies 
+│ │   │ ├── LoginTest.java 			        # Validates login and logout flow 
+│ │   │ ├── LoginOut.java 			        # Simple login-logout scenario 
+│ │   │ ├── MarkAsSpamTest.java			        # Marks email as spam 
+│ │   │ ├── SendDraftMailTest.java 		        # Composes, saves as draft, and sends email 
+│ │   │ └── TestBase.java 			        # Base test logic: setup and teardown 
 │ │   └── utils 
-│ │     ├── ConfigReader.java 			# Loads environment-specific config properties 
-│ │     └── EnhancedWebActions.java 	        # Wrapper for WebDriver actions (with highlight + logging) 
+│ │     │  └── decorators 			
+│ │     │     ├── PerformanceTimerDecorator.java 	# Logs the execution time of each web action
+│ │     │     ├── ScreenshotOnFailureDecorator.java     # Captures a screenshot whenever an exception occurs
+│ │     │     └── WebActionDecoratorInterface.java 	# Interface for web interaction decorators 
+│ │     ├── ConfigReader.java 			        # Reads configuration settings from a properties file
+│ │     ├── EnhancedWebAction.java 		        # Wrapper for WebDriver actions (with highlight, logging, etc)
+│ │     ├── EnvironmentManager.java 	                # Centralized environment manager
+│ │     └── WebActions.java 	                        # Low-level web interaction methods such as typing into fields, waiting, etc 
 │ ├──- resources 
-│ │  ├── config.dev.properties 			# Environment config for dev 
-│ │  ├── config.staging.properties 		# Environment config for staging 
-│ │  ├── all-tests.staging-chrome.xml 	        # All test suite for Chrome 
-│ │  ├── all-tests.staging-firefox.xml 	        # All test suite for Firefox 
-│ │  ├── smoke-suite.xml 			# Smoke tests 
-│ │  ├── regression-suite.xml 			# Full regression suite 
-│ │  └── log4j2.xml 				# Log4j2 configuration for console & file output target 
+│ │  ├── config.dev.properties 			        # Environment config for dev 
+│ │  ├── config.staging.properties 		        # Environment config for staging 
+│ │  ├── all-tests.staging-chrome.xml 	                # All test suite for Chrome 
+│ │  ├── all-tests.staging-firefox.xml 	                # All test suite for Firefox 
+│ │  ├── smoke-suite.xml 			        # Smoke tests 
+│ │  ├── regression-suite.xml 			        # Full regression suite 
+│ │  └── log4j2.xml 				        # Log4j2 configuration for console & file output target 
 target
-pom.xml 					# Maven build config and dependencies 
+pom.xml 					        # Maven build config and dependencies 
 README.md 
 ```
 
@@ -107,18 +118,22 @@ README.md
    ```bash
    mvn test -Dbrowser=chrome -Denv=staging -DsuiteXmlFile=regression-suite.xml
    ```
-   By default: logs are saved in /logs/app-YYYY-MM-DD.log and console.
+   Logs are saved in the **logs** folder and screenshots in the **screenshots** folder
 
-**✨ Features**
+## ✨ Features
 
-- ✅ Element highlighting when clicked or interacted with
-- ✅ Screenshot capture on test failure (in /screenshots)
-- ✅ Daily log file rotation (/logs)
-- ✅ Configurable test environments (dev, staging)
-- ✅ Cross-browser support (Chrome, Firefox via WebDriverManager)
-- ✅ Flexible via -D params (perfect for CI pipelines)
-- ✅ Log levels: debug, info, error, action (Log4j2)
-- ✅ Clear POM structure and reusable utility actions
+- ✅ Element highlighting to visualize test actions
+- ✅ Automatic screenshots on failure (`/screenshots` folder)
+- ✅ Daily log rotation with separate log files (`/logs`)
+- ✅ Decorator pattern for enhanced WebDriver actions (extensible & modular)
+- ✅ Performance timing and logging for action durations
+- ✅ Environment-based configuration support
+- ✅ Cross-browser execution (Chrome, Firefox)
+- ✅ `-D` parameter support for CI/CD compatibility
+- ✅ Log4j2 logging with customizable levels: `debug`, `info`, `error`, `action`
+- ✅ Clean project structure following Page Object Model
+- ✅ Full support for S.O.L.I.D principles and design patterns (Singleton, Factory, Decorator)
+
 
 
 
