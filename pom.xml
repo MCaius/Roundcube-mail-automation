@@ -9,9 +9,13 @@
   <properties>
     <maven.compiler.source>23</maven.compiler.source>
     <maven.compiler.target>23</maven.compiler.target>
-    <!-- Default test suite when no parameter is passed -->
+    <!-- Default values -->
+    <default.browser>chrome</default.browser>
+    <default.env>staging</default.env>
     <default.suite>all-test-staging-chrome.xml</default.suite>
-    <!-- Will be overridden by Jenkins parameter -->
+    <!-- Parameterizable properties -->
+    <browser>${default.browser}</browser>
+    <env>${default.env}</env>
     <suiteXmlFile>${default.suite}</suiteXmlFile>
   </properties>
 
@@ -64,6 +68,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
         <configuration>
+          <systemPropertyVariables>
+            <browser>${browser}</browser>
+            <env>${env}</env>
+          </systemPropertyVariables>
           <suiteXmlFiles>
             <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
