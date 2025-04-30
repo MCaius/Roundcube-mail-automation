@@ -9,6 +9,8 @@
   <properties>
     <maven.compiler.source>23</maven.compiler.source>
     <maven.compiler.target>23</maven.compiler.target>
+    <!-- Default test suite -->
+    <suiteXmlFile>all-test-staging-chrome.xml</suiteXmlFile>
   </properties>
 
   <dependencies>
@@ -61,10 +63,11 @@
         <version>3.1.2</version>
         <configuration>
           <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/all-test-staging-chrome.xml</suiteXmlFile>
+            <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
           </suiteXmlFiles>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
 </project>
