@@ -13,7 +13,7 @@
     <default.browser>chrome</default.browser>
     <default.env>staging</default.env>
     <default.suite>all-test-staging-chrome.xml</default.suite>
-    <!-- Parameterizable properties -->
+    <!-- Parameterizable properties  -->
     <browser>${default.browser}</browser>
     <env>${default.env}</env>
     <suiteXmlFile>${default.suite}</suiteXmlFile>
