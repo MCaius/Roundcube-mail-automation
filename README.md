@@ -75,13 +75,17 @@ src
 │ │     ├── EnvironmentManager.java 	                # Centralized environment manager
 │ │     ├── ScreenshotUtil.java 	                # Take screenshot 
 │ │     └── WebActions.java 	                        # Low-level web interaction methods such as typing into fields, waiting, etc 
-│ ├──- resources 
+│ ├──- resources
+│ │       └── META-INF.services 			
+│ │          └── org.testng.ITestNGListener 				         
 │ │  ├── config.dev.properties 			        # Environment config for dev 
 │ │  ├── config.staging.properties 		        # Environment config for staging 
 │ │  ├── all-tests.staging-chrome.xml 	                # All test suite for Chrome 
 │ │  ├── all-tests.staging-firefox.xml 	                # All test suite for Firefox 
 │ │  ├── smoke-suite.xml 			        # Smoke tests 
-│ │  ├── regression-suite.xml 			        # Full regression suite 
+│ │  ├── regression-suite.xml 			        # Full regression suite
+│ │  ├── logback.xml 			                # logback config
+│ │  ├── reportportal.properties 			# ReportPortal config 
 │ │  └── log4j2.xml 				        # Log4j2 configuration for console & file output target 
 target
 pom.xml 					        # Maven build config and dependencies 
