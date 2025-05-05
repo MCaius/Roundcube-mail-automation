@@ -40,6 +40,7 @@ build/
 ### Config File ###
 config.staging.properties
 config.dev.properties
+reportportal.properties
 
 #Reports
 /screenshots/
