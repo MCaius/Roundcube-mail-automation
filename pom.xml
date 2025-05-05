@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.testing</groupId>
+  <artifactId>Roundcube-mail-automation</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Archetype - Roundcube-mail-automation</name>
+
+  <properties>
+    <maven.compiler.source>23</maven.compiler.source>
+    <maven.compiler.target>23</maven.compiler.target>
+    <!-- Default values -->
+    <default.browser>chrome</default.browser>
+    <default.env>staging</default.env>
+    <default.suite>all-test-staging-chrome.xml</default.suite>
+    <!-- Parameterizable properties -->
+    <browser>${default.browser}</browser>
+    <env>${default.env}</env>
+    <suiteXmlFile>${default.suite}</suiteXmlFile>
+  </properties>
+
+  <dependencies>
+
+    <!-- Selenium -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.20.0</version>
+    </dependency>
+
+    <!-- Override for Bouncy Castle -->
+    <dependency>
+      <groupId>org.bouncycastle</groupId>
+      <artifactId>bcprov-jdk18on</artifactId>
+      <version>1.80</version>
+    </dependency>
+
+    <!-- WebDriverManager -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>5.7.0</version>
+    </dependency>
+
+    <!-- TestNG -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.9.0</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Log4j2 Core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+
+    <!-- Log4j2 API -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+
+
+    <!-- Bridge Log4j2 → SLF4J -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-to-slf4j</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>2.0.17</version>
+    </dependency>
+
+    <!-- Logback backend (needed by ReportPortal) -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.18</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <!-- ReportPortal Logback Appender -->
+    <dependency>
+      <groupId>com.epam.reportportal</groupId>
+      <artifactId>logger-java-logback</artifactId>
+      <version>5.1.4</version>
+    </dependency>
+
+
+      <!-- ReportPortal TestNG agent -->
+      <dependency>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>agent-java-testng</artifactId>
+        <version>5.1.2</version>
+      </dependency>
+
+      <!-- ReportPortal client -->
+      <dependency>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>client-java</artifactId>
+        <version>5.2.28</version>
+      </dependency>
+
+      <!-- ReportPortal commons -->
+      <dependency>
+        <groupId>com.epam.reportportal</groupId>
+        <artifactId>commons</artifactId>
+        <version>5.0.0</version>
+      </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Surefire plugin for TestNG -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <systemPropertyVariables>
+            <browser>${browser}</browser>
+            <env>${env}</env>
+          </systemPropertyVariables>
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

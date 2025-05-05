@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Console output -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] [%-5level] %logger{36} - %msg%n"/>
+        </Console>
+
+        <!-- Create new log each day -->
+        <RollingFile name="FileLogger" fileName="logs/Roundcube-app.log"
+                     filePattern="logs/app-%d{yyyy-MM-dd}.log">
+            <PatternLayout pattern="[%d{yyyy-MM-dd HH:mm:ss}] [%p] [%c{1}] - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+            </Policies>
+        </RollingFile>
+
+        <!-- Bridge to SLF4J to see logs in ReportPortal -->
+        <Slf4j name="Slf4j"/>
+    </Appenders>
+
+    <Loggers>
+        <!-- All logging -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FileLogger"/>
+            <AppenderRef ref="Slf4j"/>
+        </Root>
+    </Loggers>
+</Configuration>
