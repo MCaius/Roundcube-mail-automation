@@ -76,8 +76,8 @@ src
 │ │     ├── ScreenshotUtil.java 	                # Take screenshot 
 │ │     └── WebActions.java 	                        # Low-level web interaction methods such as typing into fields, waiting, etc 
 │ ├──- resources
-│ │       └── META-INF.services 			
-│ │          └── org.testng.ITestNGListener 				         
+│ │  │   └── META-INF.services 			
+│ │  │       └── org.testng.ITestNGListener 				         
 │ │  ├── config.dev.properties 			        # Environment config for dev 
 │ │  ├── config.staging.properties 		        # Environment config for staging 
 │ │  ├── all-tests.staging-chrome.xml 	                # All test suite for Chrome 
