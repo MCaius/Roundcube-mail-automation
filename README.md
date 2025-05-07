@@ -1,10 +1,4 @@
 
-# 📊 ReportPortal Integration Branch
-
-This branch is dedicated to integrating the test automation framework with **ReportPortal.io**, enabling real-time test reporting, logging, and artifact (e.g., screenshots) uploads during execution. It includes configuration, dependencies, and utility classes specifically tailored to support ReportPortal's features via TestNG and Logback.
-
----
-
 # 📬 RoundCube WebMail Automation Testing Project
 
 This project is a robust and flexible end-to-end test automation suite for the RoundCube webmail system. It's built using **Java**, **Selenium WebDriver**, **TestNG**, and follows a clean **Page Object Model (POM)** architecture. It supports multiple browsers, environments, parameterization, reusable components, daily log generation, and dynamic element highlighting during test execution.
