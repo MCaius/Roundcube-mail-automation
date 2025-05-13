@@ -28,6 +28,10 @@ This project is a robust and flexible end-to-end test automation suite for the R
   - **Delete Email**
   - **Mark Email as Spam**
   - **Send Draft Mail**
+- ✔ 3 basic implemented:
+  - **Login**
+  - **Logout**
+  - **Theme Button (dark/light mode)** ( uses regular expressions)
 - ✔ Hybrid framework: Cucumber + TestNG decorators and utilities
 - ✔ Cucumber-style feature files and step definitions
 - ✔ Custom waits and usage of WebDriver API (`click()`, `getText()`, `switchTo()`, etc.)
@@ -75,8 +79,9 @@ src
 │ │   ├── steps                                         # Cucumer steps definition
 │ │   │ ├── CommonSteps.java			         
 │ │   │ ├── DeleteEmailSteps.java
-│ │   │ ├── MarkAsSpamSteps.java 	         
-│ │   │ └── SendDraftMailSteps.java		        
+│ │   │ ├── MarkAsSpamSteps.java
+│ │   │ ├── SendDraftMailSteps.java 	 	         
+│ │   │ └── ThemeButtonSteps.java		        
 │ │   └── utils 
 │ │     │  └── decorators 			
 │ │     │     ├── PerformanceTimerDecorator.java 	# Logs the execution time of each web action
@@ -95,7 +100,8 @@ src
 │ │  │       ├── login.feature
 │ │  │       ├── logout.feature
 │ │  │       ├── mark_email_spam.feature
-│ │  │       └── send_draft_mail.feature			         
+│ │  │       ├── send_draft_mail.feature
+│ │  │       └── theme_button.feature			         
 │ │  ├── config.dev.properties 			        # Environment config for dev 
 │ │  ├── config.staging.properties 		        # Environment config for staging 
 │ │  ├── logback.xml 			                # logback config

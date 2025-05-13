@@ -38,6 +38,9 @@ public class MailboxPage extends BasePage {
     @FindBy(css = "li.junk#rcmliSU5CT1guc3BhbQ a")
     private WebElement spamFolder;
 
+    @FindBy(css = "a.theme")
+    private WebElement themeToggleButton;
+
     @FindBy(css = "a.logout#rcmbtn113")
     private WebElement logoutButton;
 
@@ -239,5 +242,36 @@ public class MailboxPage extends BasePage {
 
     public void goToSpam() {
         enhancedActions.enhancedClick(spamFolder);
+    }
+
+    // ================== Theme Button (dark/light mode)==================
+
+    public void toggleThemeIfNeeded(String desiredTheme) {
+        String buttonText = themeToggleButton.getText().toLowerCase();
+
+        // Click only if theme needs to change
+        if (desiredTheme.equalsIgnoreCase("Dark") && buttonText.contains("dark")) {
+            enhancedActions.enhancedClick(themeToggleButton);
+            logger.info("🌗 Switched to Dark theme.");
+        } else if (desiredTheme.equalsIgnoreCase("Light") && buttonText.contains("light")) {
+            enhancedActions.enhancedClick(themeToggleButton);
+            logger.info("🌕 Switched to Light theme.");
+        } else {
+            logger.info("🎨 Theme already set to: {}", desiredTheme);
+        }
+    }
+
+    public boolean isThemeApplied(String expectedTheme) {
+        String buttonText = themeToggleButton.getText().toLowerCase();
+
+        // When in Dark theme, the button says "Light mode" (to switch back)
+        if (expectedTheme.equalsIgnoreCase("Dark")) {
+            return buttonText.contains("light");
+        } else if (expectedTheme.equalsIgnoreCase("Light")) {
+            return buttonText.contains("dark");
+        } else {
+            logger.warn("⚠ Unknown theme: {}",  expectedTheme);
+            return false;
+        }
     }
 }
