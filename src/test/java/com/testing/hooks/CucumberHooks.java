@@ -3,11 +3,16 @@ package com.testing.hooks;
 import com.testing.driver.DriverSingleton;
 import com.testing.utils.ConfigReader;
 import com.testing.utils.EnvironmentManager;
+import com.testing.utils.ScreenshotUtil;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.io.File;
+
 import static com.testing.context.ScenarioContext.setDriver;
 
 /**
@@ -30,8 +35,17 @@ public class CucumberHooks {
     }
 
     @After
-    public void tearDown() {
-        logger.info("[Cucumber @After] Quitting driver");
+    public void tearDown(Scenario scenario) {
+        WebDriver driver = DriverSingleton.getDriver();
+
+        // Take screenshot on failure
+        if (scenario.isFailed()) {
+            File screenshot = ScreenshotUtil.takeScreenshot(driver, scenario.getName());
+            ScreenshotUtil.uploadToReportPortal(screenshot, "🧨 Cucumber failure screenshot: " + scenario.getName());
+        }
+
+        // Quit driver after every scenario
         DriverSingleton.closeDriver();
+        logger.info("[Cucumber @After] Quitting driver");
     }
 }

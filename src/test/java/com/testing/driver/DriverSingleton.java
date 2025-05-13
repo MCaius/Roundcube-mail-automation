@@ -9,25 +9,28 @@ import org.openqa.selenium.WebDriver;
  */
 
 public class DriverSingleton {
-    private static WebDriver driver;
+    private static final ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
     private DriverSingleton() {
-        // Ensures this class cannot be instantiated from outside
+        // Prevent instantiation
     }
 
     public static WebDriver getDriver() {
-        if (driver == null) {
+        if (driverThreadLocal.get() == null) {
             String browser = System.getProperty("browser", "chrome");
-            driver = DriverFactory.createDriver(browser);
+            WebDriver driver = DriverFactory.createDriver(browser);
             driver.manage().window().maximize();
+            driverThreadLocal.set(driver);
         }
-        return driver;
+        return driverThreadLocal.get();
     }
 
     public static void closeDriver() {
+        WebDriver driver = driverThreadLocal.get();
         if (driver != null) {
             driver.quit();
-            driver = null; // Ensure driver reference is cleared after quitting
+            driverThreadLocal.remove(); // Clean up ThreadLocal
         }
     }
 }
+

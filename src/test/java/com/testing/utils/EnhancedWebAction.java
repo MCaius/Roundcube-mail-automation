@@ -35,7 +35,7 @@ public class EnhancedWebAction implements WebActionDecoratorInterface {
     public void shortWait(long millis) {
         try {
             new WebDriverWait(driver, Duration.ofMillis(millis)).until(d -> true);
-        } catch (Exception ignored) {
+        } catch (Exception _) {
             logger.error("Short wait interrupted or failed.");
         }
     }
@@ -46,7 +46,7 @@ public class EnhancedWebAction implements WebActionDecoratorInterface {
             // 1. Wait for any notification to disappear
             try {
                 wait.until(ExpectedConditions.invisibilityOfElementLocated(notificationContainer));
-            } catch (TimeoutException e) {
+            } catch (TimeoutException _) {
                 logger.error("Notification did not disappear in time. Continuing anyway.");
             }
 
@@ -69,7 +69,7 @@ public class EnhancedWebAction implements WebActionDecoratorInterface {
             // 6. Try clicking - with JS fallback
             try {
                 element.click();
-            } catch (Exception e) {
+            } catch (Exception _) {
                 logger.info("Fallback to JS click");
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
             }
@@ -87,7 +87,7 @@ public class EnhancedWebAction implements WebActionDecoratorInterface {
     private String elementDescription(WebElement element) {
         try {
             return element.getTagName() + (element.getText().isBlank() ? "" : " with text: \"" + element.getText().trim() + "\"");
-        } catch (Exception e) {
+        } catch (Exception _) {
             return "Unknown element";
         }
     }
@@ -119,7 +119,7 @@ public class EnhancedWebAction implements WebActionDecoratorInterface {
         // Visible flash of highlight
         try {
             Thread.sleep(400);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException _) {
             Thread.currentThread().interrupt();
         }
 

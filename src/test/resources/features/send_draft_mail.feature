@@ -3,6 +3,7 @@ Feature: Compose, save, and send a draft email
   Background:
     Given I am logged into Roundcube
 
+  @regression
   Scenario Outline: Save an email as draft, edit it, send it, and verify delivery
     When I compose a new draft email with to "<to>", subject "<subject>", and body "<body>"
     And I save the email as a draft

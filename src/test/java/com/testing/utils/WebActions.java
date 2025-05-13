@@ -21,7 +21,7 @@ public class WebActions {
     public boolean isElementPresent(WebElement element) {
         try {
             return element.isDisplayed();
-        } catch (NoSuchElementException | StaleElementReferenceException e) {
+        } catch (NoSuchElementException | StaleElementReferenceException _) {
             return false;
         }
     }

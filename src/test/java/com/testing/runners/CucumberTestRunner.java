@@ -14,10 +14,9 @@ import org.testng.annotations.DataProvider;
 @CucumberOptions(
         features = "src/test/resources/features",
         glue     = {
-                "com.testing.steps",     // your step defs
-                "com.testing.hooks"      // your Cucumber hooks
+                "com.testing.steps",     //  step defs
+                "com.testing.hooks"      //  Cucumber hooks
         },
-        //tags = "@logIn", // Only run this tag
         plugin   = {"pretty", "html:target/cucumber-html-report.html",
                 "json:target/cucumber.json"}
 )

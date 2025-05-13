@@ -3,6 +3,7 @@ Feature: Delete Email
   Background:
     Given I am logged into Roundcube
 
+  @regression
   Scenario: Successfully delete an email and confirm it's removed
     Given I am on the inbox page
     When I delete the first email from the inbox
