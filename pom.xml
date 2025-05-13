@@ -12,7 +12,6 @@
     <!-- Default values -->
     <default.browser>chrome</default.browser>
     <default.env>staging</default.env>
-    <default.suite>all-test-staging-chrome.xml</default.suite>
     <!-- Parameterizable properties -->
     <browser>${default.browser}</browser>
     <env>${default.env}</env>
@@ -151,9 +150,6 @@
             <browser>${browser}</browser>
             <env>${env}</env>
           </systemPropertyVariables>
-          <suiteXmlFiles>
-            <suiteXmlFile>src/test/resources/${suiteXmlFile}</suiteXmlFile>
-          </suiteXmlFiles>
         </configuration>
       </plugin>
     </plugins>
