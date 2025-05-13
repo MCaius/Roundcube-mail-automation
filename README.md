@@ -68,11 +68,11 @@ src
 │ │   │ ├── BasePage.java 			        # Abstract class for child pages 
 │ │   │ ├── LoginPage.java 			        # Handles login page interactions 
 │ │   │ └── MailboxPage.java 			        # Main page logic (delete, spam, send, logout, etc.)
-│ │   ├── runners                       # Runners for Cucumber features
+│ │   ├── runners                                       # Runners for Cucumber features
 │ │   │ ├── CucumberChromeSmokeRunner.java 
 │ │   │ ├── CucumberFirefoxRegressionRunner.java  
 │ │   │ └── CucumberTestRunner.java  		        
-│ │   ├── steps                                   # Cucumer steps definition
+│ │   ├── steps                                         # Cucumer steps definition
 │ │   │ ├── CommonSteps.java			         
 │ │   │ ├── DeleteEmailSteps.java
 │ │   │ ├── MarkAsSpamSteps.java 	         
@@ -90,7 +90,7 @@ src
 │ ├──- resources
 │ │  │   └── META-INF.services 			
 │ │  │   │   └── org.testng.ITestNGListener
-│ │  │   └── featuress	                      # Cucumber feature files
+│ │  │   └── featuress	                                 # Cucumber feature files
 │ │  │       ├── delete_email.feature
 │ │  │       ├── login.feature
 │ │  │       ├── logout.feature
@@ -158,6 +158,8 @@ Screenshots and log entries are uploaded automatically during failures.
 ---
 
 ## 📸  Screenshot
+
+![CucumberTests](https://github.com/user-attachments/assets/fe974df4-6ae2-438a-9750-0d5975b06cd3)
 
 
 ## 🛠️ Tech Stack
