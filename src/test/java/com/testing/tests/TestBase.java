@@ -1,7 +1,6 @@
 package com.testing.tests;
 
 import com.testing.driver.DriverSingleton;
-import com.testing.pages.LoginPage;
 import com.testing.utils.ConfigReader;
 import com.testing.utils.EnvironmentManager;
 import org.openqa.selenium.WebDriver;
@@ -30,12 +29,6 @@ public class TestBase {
 
         // If baseUrl is null, this will throw the exception
         driver.get(baseUrl);
-
-        // Login using credentials from config
-        new LoginPage(driver).login(
-                ConfigReader.get("username"),
-                ConfigReader.get("password")
-        );
     }
 
     // Runs after each test — shuts down the browser

@@ -46,7 +46,7 @@
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>7.9.0</version>
+      <version>7.10.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -114,6 +114,28 @@
         <artifactId>commons</artifactId>
         <version>5.0.0</version>
       </dependency>
+
+    <!-- Cucumber core and Gherkin -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>7.15.0</version>
+    </dependency> <!-- :contentReference[oaicite:0]{index=0} -->
+
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>7.15.0</version>
+    </dependency> <!-- :contentReference[oaicite:1]{index=1} -->
+
+
+    <!-- (Optional) Cucumber HTML reporting plugin -->
+    <dependency>
+      <groupId>net.masterthought</groupId>
+      <artifactId>cucumber-reporting</artifactId>
+      <version>5.8.4</version>
+      <scope>test</scope>
+    </dependency>
 
   </dependencies>
 

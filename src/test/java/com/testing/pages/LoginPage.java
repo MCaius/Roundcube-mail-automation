@@ -20,6 +20,11 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    // Check that the email input is present on the login page
+    public boolean isAt() {
+        return emailInput.isDisplayed();
+    }
+
     public void login(String email, String password) {
         emailInput.clear();
         emailInput.sendKeys(email);
